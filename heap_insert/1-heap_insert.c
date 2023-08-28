@@ -11,16 +11,16 @@ heap_t *heap_insert(heap_t **root, int value)
 	heap_t *new_node, *parent;
 
 	if (!root)
-		return NULL;
+		return (NULL);
 
 	new_node = binary_tree_node(NULL, value);
 	if (!new_node)
-		return NULL;
+		return (NULL);
 
 	if (!*root)
 	{
 		*root = new_node;
-		return new_node;
+		return (new_node);
 	}
 
 	parent = *root;
@@ -46,7 +46,7 @@ heap_t *heap_insert(heap_t **root, int value)
 	else
 		new_node->parent->left = new_node;
 
-	return node_swap(new_node);
+	return (node_swap(new_node));
 }
 
 /**
@@ -70,5 +70,5 @@ heap_t *node_swap(heap_t *node)
 			break;
 		}
 	}
-	return node;
+	return (node);
 }
