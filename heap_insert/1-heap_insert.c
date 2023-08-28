@@ -8,45 +8,45 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-  heap_t *new_node, *parent;
+	heap_t *new_node, *parent;
 
-  if (!root)
-    return NULL;
+	if (!root)
+		return NULL;
 
-  new_node = binary_tree_node(NULL, value);
-  if (!new_node)
-    return NULL;
+	new_node = binary_tree_node(NULL, value);
+	if (!new_node)
+		return NULL;
 
-  if (!*root)
-    {
-      *root = new_node;
-      return new_node;
-    }
+	if (!*root)
+	{
+		*root = new_node;
+		return new_node;
+	}
 
-  parent = *root;
-  while (parent)
-    {
-      if (parent->left && parent->right)
-        {
-	  if (!parent->left->left || !parent->left->right)
-	    new_node->parent = parent->left;
-	  else
-	    new_node->parent = parent->right;
-        }
-      else
-        {
-	  new_node->parent = parent;
-        }
+	parent = *root;
+	while (parent)
+	{
+		if (parent->left && parent->right)
+		{
+			if (!parent->left->left || !parent->left->right)
+				new_node->parent = parent->left;
+			else
+				new_node->parent = parent->right;
+		}
+		else
+		{
+			new_node->parent = parent;
+		}
 
-      parent = parent->left;
-    }
+		parent = parent->left;
+	}
 
-  if (new_node->parent->left)
-    new_node->parent->right = new_node;
-  else
-    new_node->parent->left = new_node;
+	if (new_node->parent->left)
+		new_node->parent->right = new_node;
+	else
+		new_node->parent->left = new_node;
 
-  return node_swap(new_node);
+	return node_swap(new_node);
 }
 
 /**
@@ -56,19 +56,19 @@ heap_t *heap_insert(heap_t **root, int value)
  */
 heap_t *node_swap(heap_t *node)
 {
-  while (node && node->parent)
-    {
-      if (node->n > node->parent->n)
-        {
-	  int temp = node->n;
-	  node->n = node->parent->n;
-	  node->parent->n = temp;
-	  node = node->parent;
-        }
-      else
-        {
-	  break;
-        }
-    }
-  return node;
+	while (node && node->parent)
+	{
+		if (node->n > node->parent->n)
+		{
+			int temp = node->n;
+			node->n = node->parent->n;
+			node->parent->n = temp;
+			node = node->parent;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return node;
 }
