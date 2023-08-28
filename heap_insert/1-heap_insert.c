@@ -61,6 +61,7 @@ heap_t *node_swap(heap_t *node)
 		if (node->n > node->parent->n)
 		{
 			int temp = node->n;
+
 			node->n = node->parent->n;
 			node->parent->n = temp;
 			node = node->parent;
