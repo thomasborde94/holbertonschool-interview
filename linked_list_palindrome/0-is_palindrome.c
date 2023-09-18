@@ -18,7 +18,7 @@ int is_palindrome(listint_t **head)
 	size = 0;
 	arr = malloc(sizeof(listint_t));
 	if (arr == NULL)
-		free_listint(arr);
+		free(arr);
 	while (*head)
     {
 		arr[size] = (*head)->n;
