@@ -1,1 +1,1 @@
-N Queens algo
+N Queens algorithm
