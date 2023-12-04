@@ -1,36 +1,28 @@
 #!/usr/bin/node
-
+// script that prints all characters of a Star Wars movie in order
 const request = require('request');
-const filmNum = process.argv[2] + '/';
-const filmURL = 'https://swapi-api.hbtn.io/api/films/';
-
-request(filmURL + filmNum, async function (err, res, body) {
+const myArgs = process.argv.splice(2);
+const URL = 'https://swapi-api.hbtn.io/api/films/' + myArgs[0];
+request.get(URL, async (err, response, body) => {
   if (err) {
-    return console.error(err);
-  }
-
-  const parsedBody = JSON.parse(body);
-
-  if (!parsedBody || !parsedBody.characters) {
-    return console.error('Invalid response or characters key not found in the response');
-  }
-
-  const charURLList = parsedBody.characters;
-
-  if (!Array.isArray(charURLList)) {
-    return console.error('charURLList is not an array');
-  }
-
-  for (const charURL of charURLList) {
-    await new Promise(function (resolve, reject) {
-      request(charURL, function (err, res, body) {
-        if (err) {
-          console.error(err);
-          return resolve();
-        }
-        console.log(JSON.parse(body).name);
-        resolve();
+    console.log(err);
+  } else {
+    const character = JSON.parse(body).characters;
+    const characterList = characterURLs => {
+      const promise = new Promise((resolve, reject) => {
+        request.get(characterURLs, (err, response, body) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(body);
+          }
+        });
       });
-    });
+      return promise;
+    };
+    for (let i = 0; i < character.length; i++) {
+      const result = await characterList(character[i]);
+      console.log(JSON.parse(result).name);
+    }
   }
 });
