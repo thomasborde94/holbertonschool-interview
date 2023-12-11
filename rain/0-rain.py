@@ -26,4 +26,3 @@ def rain(walls=[]):
         total_water = total_water + (min(left, right) - walls[i])
 
     return total_water
-    
